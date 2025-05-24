@@ -16,7 +16,7 @@ export default function PaginaInicial({ navigation }) {
   const animWidth = useRef(new Animated.Value(Dimensions.get('window').width)).current;
   const animHeight = useRef(new Animated.Value(Dimensions.get('window').height)).current;
 
-  // Começa com imagem aleatória
+    // Começa com imagem aleatória
   const [imagemAtual, setImagemAtual] = useState(() => {
     const indexAleatorio = Math.floor(Math.random() * imagens.length);
     return imagens[indexAleatorio];
@@ -27,16 +27,26 @@ export default function PaginaInicial({ navigation }) {
     Blinker_700Bold,
   });
 
+  const fadeAnim = useRef(new Animated.Value(1)).current;  // Opacidade da frase
+
   useEffect(() => {
     const intervalo = setInterval(() => {
       const indexAleatorio = Math.floor(Math.random() * imagens.length);
       setImagemAtual(imagens[indexAleatorio]);
-    }, 240000);  // Troca a cada 4 minutos
+    }, 240000);
 
     return () => clearInterval(intervalo);
   }, []);
 
   const reduzirImagem = () => {
+    // Faz o fade out da frase
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 400,    //Duração suave
+      useNativeDriver: true,
+    }).start();
+
+    //Reduz imagem depois
     Animated.parallel([
       Animated.timing(animWidth, {
         toValue: 300,
@@ -63,6 +73,14 @@ export default function PaginaInicial({ navigation }) {
             source={imagemAtual}
             style={estilos.imagem}
           />
+
+          {expandida && (
+            <Animated.View style={[estilos.containerFrase, { opacity: fadeAnim }]}>
+              <Text style={estilos.frase}>
+              "Toque na Tela para Começar sua Jornada Artística."
+              </Text>
+            </Animated.View>
+          )}
 
           {!expandida && (
             <>
@@ -103,6 +121,25 @@ const estilos = StyleSheet.create({
     width: '115%',
     height: '120%',
     borderRadius: 20,
+  },
+
+  containerFrase: {
+    position: 'absolute',
+    top: '45%',
+    left: 20,
+    right: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  frase: {
+    fontFamily: 'Blinker_400Regular',
+    fontSize: 22,
+    color: '#fff',
+    textAlign: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    padding: 16,
+    borderRadius: 10,
   },
 
   containerTexto: {

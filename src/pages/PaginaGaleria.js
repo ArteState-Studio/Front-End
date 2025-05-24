@@ -17,12 +17,14 @@ export default function PaginaGaleria({ navigation }) {
       let url = '';
 
       if (texto) {
-        // ✅ Busca por qualquer coisa → SEM filtro "Painting"
+        //Busca por qualquer coisa
         const query = `q=${encodeURIComponent(texto)}&`;
-        url = `https://api.artic.edu/api/v1/artworks/search?${query}page=${pagina}&limit=30&fields=id,title,image_id`;
+        url = `https://api.artic.edu/api/v1/artworks/search?${query}page=${pagina}&limit=5&fields=id,title,image_id`;
+
       } else {
-        // ✅ Busca aleatória inicial → SÓ pinturas
-        url = `https://api.artic.edu/api/v1/artworks?classification_title=Painting&page=${pagina}&limit=30&fields=id,title,image_id`;
+        //Busca aleatória inicial
+        url = `https://api.artic.edu/api/v1/artworks?classification_title=Painting&page=${pagina}&limit=9&fields=id,title,image_id`;
+
       }
 
       const response = await fetch(url);
@@ -34,6 +36,9 @@ export default function PaginaGaleria({ navigation }) {
           id: item.id,
           title: item.title,
           image_url: `https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`
+
+
+
         }));
 
       if (pagina === 1) {
@@ -102,12 +107,18 @@ export default function PaginaGaleria({ navigation }) {
 
   return (
     <View style={estilos.container}>
-      <TextInput
+      
+    <View style={estilos.containerPesquisa}>
+        <Image source={require('../assets/lupa.png')} style={estilos.iconePesquisa} />
+
+    <TextInput
         style={estilos.input}
         placeholder="Pesquisar pinturas..."
         value={pesquisa}
         onChangeText={setPesquisa}
-      />
+    />
+    </View>
+
 
       <View style={estilos.tabs}>
         <TouchableOpacity onPress={() => setTab('Explorar')} style={[estilos.tab, tab === 'Explorar' && estilos.tabAtiva]}>
@@ -170,10 +181,11 @@ const estilos = StyleSheet.create({
   },
   card: {
     margin: 5,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 10,
     overflow: 'hidden',
     elevation: 3,
+    
   },
   imagem: {
     width: '100%',
@@ -185,4 +197,28 @@ const estilos = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
+  containerPesquisa: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    borderColor: '#858585',
+    borderWidth: 1,
+  },
+  
+  iconePesquisa: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
+    tintColor: '#aaa',  
+  },
+  
+  input: {
+    flex: 1,
+    height: 40,
+    fontSize: 14,
+  },
+  
 });
