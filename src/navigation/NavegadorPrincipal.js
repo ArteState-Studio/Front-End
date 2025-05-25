@@ -6,6 +6,7 @@ import { View, Image, StyleSheet, Animated } from 'react-native';
 import PaginaInicial from '../pages/PaginaInicial';
 import PaginaGaleria from '../pages/PaginaGaleria';
 import TelaAdicionarDetalhes from '../pages/TelaAdicionarDetalhes';
+import TelaEditarDetalhes from '../pages/TelaEditarDetalhes';
 
 const CasaIcone = require('../assets/casa.png');
 const PaintIcone = require('../assets/icone-paint.png');
@@ -18,6 +19,7 @@ function PilhaInicio() {
     <Pilha.Navigator screenOptions={{ headerShown: false }}>
       <Pilha.Screen name="TelaInicial" component={PaginaInicial} />
       <Pilha.Screen name="TelaAdicionarDetalhes" component={TelaAdicionarDetalhes} />
+      <Pilha.Screen name="TelaEditarDetalhes" component={TelaEditarDetalhes} />
     </Pilha.Navigator>
   );
 }
@@ -27,6 +29,7 @@ function PilhaGaleria() {
     <Pilha.Navigator screenOptions={{ headerShown: false }}>
       <Pilha.Screen name="TelaGaleria" component={PaginaGaleria} />
       <Pilha.Screen name="TelaAdicionarDetalhes" component={TelaAdicionarDetalhes} />
+      <Pilha.Screen name="TelaEditarDetalhes" component={TelaEditarDetalhes} />
     </Pilha.Navigator>
   );
 }
@@ -37,51 +40,60 @@ export default function NavegadorPrincipal() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: '#1F2124',
-          height: 70,
-        },
+        tabBarStyle: { backgroundColor: '#1F2124', height: 70 },
         tabBarIcon: ({ focused }) => {
-          const icone = route.name === 'Início' ? CasaIcone : PaintIcone;
-
           const animScale = useRef(new Animated.Value(1)).current;
           const animTranslate = useRef(new Animated.Value(0)).current;
 
           useEffect(() => {
-            Animated.parallel([
-              Animated.spring(animScale, {
-                toValue: focused ? 1.2 : 1,
-                useNativeDriver: true,
-              }),
-              Animated.spring(animTranslate, {
-                toValue: focused ? -10 : 0,
-                useNativeDriver: true,
-              }),
-            ]).start();
+            if (focused) {
+              Animated.parallel([
+                Animated.spring(animScale, {
+                  toValue: 1.3,
+                  useNativeDriver: true,
+                  friction: 4,
+                  tension: 120,
+                }),
+                Animated.spring(animTranslate, {
+                  toValue: -10,
+                  useNativeDriver: true,
+                  friction: 4,
+                  tension: 120,
+                }),
+              ]).start();
+            } else {
+              Animated.parallel([
+                Animated.spring(animScale, {
+                  toValue: 1,
+                  useNativeDriver: true,
+                }),
+                Animated.spring(animTranslate, {
+                  toValue: 0,
+                  useNativeDriver: true,
+                }),
+              ]).start();
+            }
           }, [focused]);
+
+          const icone = route.name === 'Início' ? CasaIcone : PaintIcone;
 
           return (
             <Animated.View
-              style={{
-                transform: [{ scale: animScale }, { translateY: animTranslate }],
-                marginBottom: -15,
-              }}
+              style={[
+                focused ? estilos.iconeSelecionado : estilos.icone,
+                {
+                  transform: [{ scale: animScale }, { translateY: animTranslate }],
+                },
+              ]}
             >
-              {focused ? (
-                <View style={estilos.bordaBranca}>
-                  <View style={estilos.bordaPreta}>
-                    <Image
-                      source={icone}
-                      style={estilos.iconeImagemSelecionado}
-                    />
-                  </View>
-                </View>
-              ) : (
-                <Image
-                  source={icone}
-                  style={estilos.iconeImagem}
-                />
-              )}
+              <Image
+                source={icone}
+                style={{
+                  width: 28,
+                  height: 28,
+                  tintColor: focused ? '#fff' : '#fff',
+                }}
+              />
             </Animated.View>
           );
         },
@@ -94,24 +106,16 @@ export default function NavegadorPrincipal() {
 }
 
 const estilos = StyleSheet.create({
-  bordaBranca: {
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    padding: 6,
+  icone: {
+    padding: 10,
+    marginBottom: -15,
   },
-  bordaPreta: {
+  iconeSelecionado: {
     backgroundColor: '#1F2124',
     borderRadius: 50,
-    padding: 10,
-  },
-  iconeImagemSelecionado: {
-    width: 24,
-    height: 24,
-    tintColor: '#fff',
-  },
-  iconeImagem: {
-    width: 24,
-    height: 24,
-    tintColor: '#fff',
+    padding: 8,
+    marginBottom: -15,
+    borderWidth: 6,
+    borderColor: '#fff',
   },
 });

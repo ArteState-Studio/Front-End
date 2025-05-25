@@ -27,22 +27,22 @@ export default function PaginaInicial({ navigation }) {
     Blinker_700Bold,
   });
 
-  const fadeAnim = useRef(new Animated.Value(1)).current;  // Opacidade da frase
+  const fadeAnim = useRef(new Animated.Value(1)).current; 
 
   useEffect(() => {
     const intervalo = setInterval(() => {
       const indexAleatorio = Math.floor(Math.random() * imagens.length);
       setImagemAtual(imagens[indexAleatorio]);
-    }, 240000);
+    }, 60000);
 
     return () => clearInterval(intervalo);
   }, []);
 
   const reduzirImagem = () => {
-    // Faz o fade out da frase
+   
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 400,    //Duração suave
+      duration: 400,   
       useNativeDriver: true,
     }).start();
 
