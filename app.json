@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ArteState",
-    "slug": "GaleriaDeArte",
+    "name": "ArteState-Studio",
+    "slug": "artstate-studio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "src/assets/ArteStateStudio.png",

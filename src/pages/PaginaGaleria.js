@@ -18,7 +18,7 @@ export default function PaginaGaleria({ navigation }) {
     try {
       let url = texto
         ? `https://api.artic.edu/api/v1/artworks/search?q=${encodeURIComponent(texto)}&page=${pagina}&limit=5&fields=id,title,image_id`
-        : `https://api.artic.edu/api/v1/artworks?classification_title=Painting&page=${pagina}&limit=9&fields=id,title,image_id`;
+        : `https://api.artic.edu/api/v1/artworks?classification_title=Painting&page=${pagina}&limit=8&fields=id,title,image_id`;
 
       const response = await fetch(url);
       const json = await response.json();

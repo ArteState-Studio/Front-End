@@ -40,7 +40,7 @@ export default function NavegadorPrincipal() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: { backgroundColor: '#1F2124', height: 70 },
+        tabBarStyle: { backgroundColor: '#1F124', height: 70 },
         tabBarIcon: ({ focused }) => {
           const animScale = useRef(new Animated.Value(1)).current;
           const animTranslate = useRef(new Animated.Value(0)).current;
@@ -91,7 +91,7 @@ export default function NavegadorPrincipal() {
                 style={{
                   width: 28,
                   height: 28,
-                  tintColor: focused ? '#fff' : '#fff',
+                  tintColor: '#fff',
                 }}
               />
             </Animated.View>
@@ -113,9 +113,9 @@ const estilos = StyleSheet.create({
   iconeSelecionado: {
     backgroundColor: '#1F2124',
     borderRadius: 50,
-    padding: 8,
-    marginBottom: -15,
-    borderWidth: 6,
+    padding: 13,
+    marginBottom: -1,
+    borderWidth: 9,
     borderColor: '#fff',
   },
 });
