@@ -223,9 +223,10 @@ const estilos = StyleSheet.create({
   card: {
     margin: 5,
     backgroundColor: '#FFFFFF',
-    borderRadius: 10,
+    borderRadius: 20,
     overflow: 'hidden',
-    elevation: 3
+    elevation: 0,
+    shadow: true ? '#000' : 'transparent',
   },
   imagem: {
     width: '100%',
@@ -235,7 +236,7 @@ const estilos = StyleSheet.create({
   titulo: {
     padding: 8,
     fontSize: 14,
-    fontWeight: 'bold'
+    fontWeight: 'regular'
   },
   semResultados: {
     marginTop: 50,
