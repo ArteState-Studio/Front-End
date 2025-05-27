@@ -1,10 +1,8 @@
-# ArteState Studio - Aplicativo Mobile
-
-## Descrição do projeto
+🎨 ## ArteState Studio - Aplicativo Mobile
 
 ArteState Studio é um aplicativo mobile feito em React Native que apresenta um acervo cultural focado em arte popular, tradições e histórias locais, com destaque para temas regionais e jumentos como símbolo cultural. O app oferece navegação simples entre diferentes categorias de arte e possibilita o usuário aprender mais sobre a cultura popular brasileira.
 
-## Tecnologias utilizadas
+🚀 ## Tecnologias utilizadas
 
 - React Native (Expo)  
 - React Navigation  
@@ -13,11 +11,11 @@ ArteState Studio é um aplicativo mobile feito em React Native que apresenta um 
 - SVG para ícones
 - API: [Art Institute of Chicago API](https://api.artic.edu/docs/)
 
-## Integração com API Chicago
+✨ ## Integração com API Chicago
 
 O app consome dados de uma API (API Chicago) que oferece informações detalhadas sobre obras de arte, peças folclóricas e histórias relacionadas. Isso permite atualizar o conteúdo de forma dinâmica e expandir o acervo facilmente.
 
-## Como rodar o projeto localmente
+📁 ## Estrutura Do Projeto
 
 ```
 FRONT-END/
@@ -39,7 +37,7 @@ FRONT-END/
 └── package.json 
 ```
 
-Siga os passos abaixo para executar o aplicativo no seu ambiente local:
+🧪 ## Siga os passos abaixo para executar o aplicativo no seu ambiente local:
 
 1. Clone o repositório:
 
@@ -62,7 +60,7 @@ npx expo start
 4.Use o aplicativo Expo Go no seu celular para escanear o QR Code exibido no terminal ou no navegador para rodar o app no dispositivo físico. Ou utilize um emulador Android/iOS.
 
 
-## Licença
+📝 ## Licença
 
 Este aplicativo foi criado para fins **educacionais e de estudo**.  
 O código pode ser usado livremente para aprendizado e projetos pessoais, mas não deve ser utilizado para fins comerciais sem autorização prévia do autor.
