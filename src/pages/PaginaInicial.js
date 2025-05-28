@@ -14,10 +14,13 @@ const imagens = [
   require('../assets/art7.png'),
 ];
 
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+
 export default function PaginaInicial({ navigation }) {
   const [expandida, setExpandida] = useState(false);
-  const animWidth = useRef(new Animated.Value(Dimensions.get('window').width)).current;
-  const animHeight = useRef(new Animated.Value(Dimensions.get('window').height)).current;
+  const animWidth = useRef(new Animated.Value(SCREEN_WIDTH)).current;
+  const animHeight = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
 
   const [imagemAtual, setImagemAtual] = useState(() => {
     const indexAleatorio = Math.floor(Math.random() * imagens.length);
@@ -33,7 +36,20 @@ export default function PaginaInicial({ navigation }) {
   const blinkAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    setExpandida(true);  
+    
+    setExpandida(true);
+    Animated.parallel([
+      Animated.timing(animWidth, {
+        toValue: SCREEN_WIDTH,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+      Animated.timing(animHeight, {
+        toValue: SCREEN_HEIGHT,
+        duration: 500,
+        useNativeDriver: false,
+      }),
+    ]).start();
 
     const intervalo = setInterval(() => {
       const indexAleatorio = Math.floor(Math.random() * imagens.length);
@@ -66,7 +82,7 @@ export default function PaginaInicial({ navigation }) {
         useNativeDriver: false,
       }),
       Animated.timing(animHeight, {
-        toValue: 600,
+        toValue: 530,
         duration: 500,
         useNativeDriver: false,
       }),
@@ -88,13 +104,14 @@ export default function PaginaInicial({ navigation }) {
         });
       }
 
-      return () => parent?.setOptions({
-        tabBarStyle: {
-          backgroundColor: '#1F2124',
-          height: 70,
-          borderTopWidth: 0,
-        },
-      });
+      return () =>
+        parent?.setOptions({
+          tabBarStyle: {
+            backgroundColor: '#1F2124',
+            height: 70,
+            borderTopWidth: 0,
+          },
+        });
     }, [expandida, navigation])
   );
 
@@ -103,13 +120,21 @@ export default function PaginaInicial({ navigation }) {
   return (
     <View style={estilos.container}>
       <TouchableWithoutFeedback onPress={expandida ? reduzirImagem : null}>
-        <Animated.View style={[estilos.containerImagem, { width: animWidth, height: animHeight }]}>
-          <Image source={imagemAtual} style={estilos.imagem} />
+        <Animated.View
+          style={[ 
+            estilos.containerImagem,
+            expandida && estilos.expandida,
+            { width: animWidth, height: animHeight },
+          ]}
+        >
+          <Image source={imagemAtual} style={estilos.imagem} resizeMode="cover" />
 
           {expandida && (
             <Animated.View style={[estilos.containerFrase, { opacity: fadeAnim }]}>
               <Text style={[estilos.frase, estilos.bold]}>MERGULHE</Text>
-              <Text style={estilos.frase}>NA <Text style={estilos.bold}>ARTE</Text></Text>
+              <Text style={estilos.frase}>
+                NA <Text style={estilos.bold}>ARTE</Text>
+              </Text>
               <Text style={estilos.frase}>COM A</Text>
               <Text style={estilos.frase}>GENTE</Text>
 
@@ -149,10 +174,17 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  expandida: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   imagem: {
-    width: '115%',
-    height: '120%',
+    width: '100%',
+    height: '114%',
     borderRadius: 20,
+    resizeMode: 'cover',
   },
   containerFrase: {
     position: 'absolute',
@@ -162,7 +194,7 @@ const estilos = StyleSheet.create({
   },
   frase: {
     fontFamily: 'Blinker_400Regular',
-    fontSize: 60,
+    fontSize: 45,
     color: '#fff',
   },
   bold: {
@@ -170,8 +202,8 @@ const estilos = StyleSheet.create({
   },
   subFrase: {
     fontFamily: 'Blinker_400Regular',
-    fontSize: 24,
-    marginTop: 300,
+    fontSize: 20,
+    marginTop: 210,
     color: '#fff',
     textAlign: 'center',
   },
@@ -194,8 +226,8 @@ const estilos = StyleSheet.create({
     color: '#fff',
   },
   botao: {
-    position: 'absolute',
-    bottom: -100,
+    position: 'relative',
+    bottom: 35,
     paddingHorizontal: 65,
     paddingVertical: 20,
     borderRadius: 50,
