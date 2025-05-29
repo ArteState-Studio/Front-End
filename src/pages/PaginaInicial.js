@@ -12,6 +12,7 @@ const imagens = [
   require('../assets/art5.png'),
   require('../assets/art6.png'),
   require('../assets/art7.png'),
+  require('../assets/artDaniel.jpeg'),
 ];
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
