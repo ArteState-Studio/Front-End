@@ -4,15 +4,16 @@ import { useFonts, Blinker_400Regular, Blinker_700Bold } from '@expo-google-font
 import { useFocusEffect } from '@react-navigation/native';
 
 const imagens = [
-  require('../assets/noite-estrelada.png'),
-  require('../assets/art1.png'),
-  require('../assets/art2.png'),
-  require('../assets/art3.png'),
-  require('../assets/art4.png'),
-  require('../assets/art5.png'),
-  require('../assets/art6.png'),
-  require('../assets/art7.png'),
-  require('../assets/artDaniel.jpeg'),
+  { uri: 'https://artestate.blob.core.windows.net/roblox/noite-estrelada.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/art1.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/art2.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/art3.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/art4.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/art5.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/art6.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/art7.png' },
+  { uri: 'https://artestate.blob.core.windows.net/roblox/artDaniel.jpeg' },
+
 ];
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
